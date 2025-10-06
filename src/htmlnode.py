@@ -19,6 +19,7 @@ class TagType(Enum):
     QUOTE = "blockquote"
     SPAN = "span"
     DIV ="div"
+    CODE = "code"
 
 
 class HTMLNode:

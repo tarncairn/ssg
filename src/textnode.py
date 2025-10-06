@@ -1,18 +1,24 @@
 from enum import Enum
 
 class TextType(Enum):
-    PLAIN = "plain"
-    BOLD = "bold"
-    ITALIC = "italic"
+    TEXT = "text"
+    BOLD = "b"
+    ITALIC = "i"
     CODE = "code"
-    LINK = "link"
-    IMAGE = "image"
+    LINK = "a"
+    IMAGE = "img"
     
 
 class TextNode:
     def __init__(self,text, text_type,url=None):
         self.text = text #text content of the node
-        self.text_type = text_type.value #type of text this node contains, which is a member of the TextType enum
+        if isinstance(text_type, TextType):
+            self.text_type = text_type.value
+        elif isinstance(text_type, str):
+            raise AttributeError("Text type must be a valid text type")
+        else:
+            self.tag = None
+         #type of text this node contains, which is a member of the TextType enum
         self.url = url # url of the link or image if the text is a link
     
     def __eq__(self, other):
