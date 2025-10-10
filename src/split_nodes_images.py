@@ -6,26 +6,26 @@ def split_nodes_image(old_nodes):
     result = []
     if not isinstance(old_nodes, list):
         raise ValueError("Must provide list of nodes.")
+    
     for node in old_nodes:
-        if not isinstance(node, TextNode):
-            raise ValueError("Nodes must be text nodes.")
+        if not isinstance(node,TextNode):
+            raise ValueError("Nodes must be valid")
+            continue
+        if node.text_type != "text":
+            result.append(node)
+            continue
+        text = node.text
         images = extract_markdown_images(node.text)
-        
-        if len(images) == 0 or isinstance(images,str):
+        if not images:
             result.append(node)
             continue
         
-        parts = re.split(r"!(.*?)\)",node.text,maxsplit=2)
-        for i in range(0,len(parts)+1):
-            if parts[i] == "":
-                break
-            if i % 2 == 0:
-                result.append(TextNode(text=parts[i], text_type=TextType.TEXT))
-                continue
-            else:
-                result.append(TextNode(images[0][0], TextType.IMAGE, images[0][1]))
-                del images[0]
-                continue
-    if result == old_nodes:
-        raise ValueError("No matches were found")
+        for alt, url in images:
+            marker = f"![{alt}]({url})"
+            before, found, text = text.partition(marker)
+            if before:
+                result.append(TextNode(before,TextType.TEXT))
+            result.append(TextNode(alt,TextType.IMAGE, url))
+        if text:
+                result.append(TextNode(text, TextType.TEXT))
     return result

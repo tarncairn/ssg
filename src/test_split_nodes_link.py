@@ -26,7 +26,7 @@ class TestSplitNodesLink(unittest.TestCase):
         "This is text with no images",
         TextType.TEXT,
     )
-        self.assertRaises(ValueError, split_nodes_link, [node])
+        self.assertEqual(split_nodes_link([node]), [node])
         
 
     
@@ -35,14 +35,14 @@ class TestSplitNodesLink(unittest.TestCase):
         "This is text with an !image](https://i.imgur.com/zjjcJKZ.png)",
         TextType.TEXT,
     )
-        self.assertRaises(ValueError, split_nodes_link, [node])
+        self.assertEqual(split_nodes_link([node]), [node])
             
     def test_missing_bracket(self):
         node = TextNode(
         "This is text with an ![image](https://i.imgur.com/zjjcJKZ.png",
         TextType.TEXT,
     )
-        self.assertRaises(ValueError, split_nodes_link, [node])
+        self.assertEqual(split_nodes_link([node]), [node])
     
     def test_non_node_arg(self):
         node = "This is just a string"

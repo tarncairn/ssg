@@ -10,23 +10,19 @@ class TestExtractMarkdownImages(unittest.TestCase):
     
     def test_no_images(self):
         text = "This is text with no images"
-        checker ="No matches were found."
-        self.assertEqual(extract_markdown_images(text), checker)
+        self.assertEqual(extract_markdown_images(text), None)
         
     def test_missing_exclamation_mark(self):
         text = "This is text with an [image](https://i.imgur.com/zjjcJKZ.png)"
-        checker ="No matches were found."
-        self.assertEqual(extract_markdown_images(text), checker)
+        self.assertEqual(extract_markdown_images(text), None)
     
     def test_missing_square_bracket(self):
         text = "This is text with an !image](https://i.imgur.com/zjjcJKZ.png)"
-        checker ="No matches were found."
-        self.assertEqual(extract_markdown_images(text), checker)
+        self.assertEqual(extract_markdown_images(text), None)
     
     def test_missing_bracket(self):
         text = "This is text with an ![image](https://i.imgur.com/zjjcJKZ.png"
-        checker ="No matches were found."
-        self.assertEqual(extract_markdown_images(text), checker)
+        self.assertEqual(extract_markdown_images(text), None)
     
     
     
