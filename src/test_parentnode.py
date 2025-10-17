@@ -40,6 +40,11 @@ class TestParentNode(unittest.TestCase):
     def test_tag_is_invalid(self):
         child_node = LeafNode("b", "grandchild")
         self.assertRaises(ValueError, ParentNode, tag=123, children=[child_node])
+        
+    def test_repr(self):
+        child_node = LeafNode("span", "child")
+        parent_node = ParentNode("div", [child_node])
+        self.assertEqual(parent_node.__repr__(), "ParentNode(div, [LeafNode(span, child, None)])")
 
 if __name__ == "__main__":
     unittest.main()

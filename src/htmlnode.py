@@ -13,6 +13,7 @@ class TagType(Enum):
     ITALIC = "i"
     OL = "ol"
     UL ="ul"
+    LI = "li"
     HORIZONTAL_RULE = "hr"
     LINK = "a"
     IMAGE = "img"
@@ -20,6 +21,7 @@ class TagType(Enum):
     SPAN = "span"
     DIV ="div"
     CODE = "code"
+    PRE = "pre"
 
 
 class HTMLNode:
@@ -50,21 +52,33 @@ class HTMLNode:
         return " " + " ".join(result)
     
     def __repr__(self):
-        result = ""
+        result = "HTMLNode("
         if self.tag:
-            result += f"<{self.tag}"
-            if self.props:
-                new = self.props_to_html()
-                result += f"{new}>"
-            else:
-                result += ">"
+            result += f'{TagType(self.tag)}, '
+        else:
+            result += "None, "
         if self.value:
-            result += f"{self.value}"
-        elif self.children:
-            result += f"{self.children}"
-        if self.tag:
-            result += f"</{self.tag}>"
+            result += f"{self.value}, "
+        else:
+            result += "None, "
+        if self.children:
+            result += f"{self.children}, "
+        else:
+            result += "None, "
+        if self.props:
+            result += f"{self.props}"
+        else:
+            result += "None"
+        result += ")"
         return result
     
-
+    def __eq__(self, other):
+        if not isinstance(other, HTMLNode):
+            return False
+        return(
+            self.tag == other.tag and
+            self.value == other.value and
+            self.children == other.children and
+            self.props == other.props
+        )
 

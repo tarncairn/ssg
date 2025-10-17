@@ -26,3 +26,11 @@ class ParentNode(HTMLNode):
             if self.tag:
                 result += f"</{self.tag}>"
             return result
+        
+    def __eq__(self, other):
+        tag_is_equal = (self.tag == other.tag)
+        children_is_equal = (self.children == other.children)
+        return tag_is_equal and children_is_equal
+    
+    def __repr__(self):
+        return f"ParentNode({self.tag}, {self.children})"

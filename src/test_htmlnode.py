@@ -6,12 +6,12 @@ class TestHTMLNode(unittest.TestCase):
     def test_p(self):
         # Check that both nodes are equal
         node = HTMLNode(tag=TagType.P, value="Even the smallest person can change the course of the future")
-        node2 = '<p>Even the smallest person can change the course of the future</p>'
+        node2 = 'HTMLNode(TagType.P, Even the smallest person can change the course of the future, None, None)'
         self.assertEqual(node.__repr__(), node2)
     
     def test_raw_text(self):
         node = HTMLNode(value="Raw text")
-        node2 = "Raw text"
+        node2 = 'HTMLNode(None, Raw text, None, None)'
         self.assertEqual(node.__repr__(), node2)
     
     def test_props(self):
@@ -28,7 +28,7 @@ class TestHTMLNode(unittest.TestCase):
             "href": "https://boot.dev",
             "target": "_blank",
         },children="Boot.dev")
-        node2 = '<a href="https://boot.dev" target="_blank">Boot.dev</a>'
+        node2 = "HTMLNode(TagType.LINK, None, Boot.dev, {'href': 'https://boot.dev', 'target': '_blank'})"
         self.assertEqual(node.__repr__(), node2)
     
     def test_no_value_from_key_in_props(self):

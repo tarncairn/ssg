@@ -29,3 +29,22 @@ class TextNode:
     
     def __repr__(self):
         return f"TextNode({self.text}, {self.text_type}, {self.url})"
+    
+    def to_html(self):
+        result = ""
+        if self.text_type != "text":
+            if self.text_type == "a" and self.url:
+                result += f"<{self.text_type} href={self.url}>"
+            elif self.text_type == "img" and self.url:
+                result += f"<{self.text_type} src={self.url}>"
+            else:
+                result += f"<{self.text_type}>"
+
+        if self.text:
+            result += self.text
+            
+        if self.text_type != "text":
+            result += f"</{self.text_type}>"
+        
+        return result
+        
