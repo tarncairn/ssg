@@ -14,8 +14,10 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             result.append(node)
             continue
         parts = node.text.split(delimiter)
+        if len(parts) == 0:
+            return old_nodes
         
-        if len(parts) % 2 == 0:
+        if len(parts) % 2 == 0 and len(parts) != 0:
             raise ValueError("No matching closing delimiter was found. Invalid Markdown syntax.")
         
         
