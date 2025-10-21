@@ -25,12 +25,3 @@ def generate_page(from_path, template_path, dest_path):
     with open(dest_path, "w") as f:
         f.write(template_content)
         
-        
-
-
-
-from_path = "./content/index.md"
-dest_path = "./public/index.html"
-template_path = "./template.html"
-
-print(generate_page(from_path, template_path, dest_path))
