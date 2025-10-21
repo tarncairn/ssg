@@ -34,11 +34,9 @@ def block_to_html_node(block_type, block):
     elif block_type == BlockType.QUOTE:
         lines = block.split('\n')
         cleaned_lines = [line.lstrip('> ').strip() for line in lines if line.strip()]
-        children = []
-        for line in cleaned_lines:
-            text_nodes = text_to_textnodes(line)
-            line_children = [text_node_to_html_node(tn) for tn in text_nodes]
-            children.append(ParentNode(TagType.P.value, line_children))
+        text = "\n".join(cleaned_lines)
+        text_nodes = text_to_textnodes(text)
+        children = [text_node_to_html_node(tn) for tn in text_nodes]
         return ParentNode(TagType.QUOTE.value, children)
     
     elif block_type == BlockType.UL:
