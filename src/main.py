@@ -1,15 +1,18 @@
 import os
 import shutil
+import sys
 from pathlib import Path
 from generate_pages_recursive import generate_pages_recursive
 
 
-def copy_static():
+def copy_static(base_path):
+    
+        
     static_path = Path("./static")
-    public_path = Path("./public")
+    public_path = Path("./docs")
     content_path = Path("./content")
     template_path = Path("./template.html")
-    destination_path = Path("./public")
+    destination_path = Path("./docs")
     
     static_exists = os.path.exists(static_path)
     public_exists = os.path.exists(public_path)
@@ -21,7 +24,7 @@ def copy_static():
     os.mkdir(public_path)
     print(f"Contents successfully deleted from {public_path}")
     copier(static_path, public_path)
-    generate_pages_recursive(content_path, template_path, destination_path)
+    generate_pages_recursive(content_path, template_path, destination_path,base_path)
     
     
 def copier(src_dir, destination_dir):
@@ -43,7 +46,8 @@ def copier(src_dir, destination_dir):
 
 
 def main():
-   copy_static()
+    base_path = sys.argv[1] if len(sys.argv) > 1 else "/"
+    copy_static(base_path)
     
     
         
